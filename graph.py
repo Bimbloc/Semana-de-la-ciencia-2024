@@ -5,6 +5,7 @@ from scipy.io import wavfile
 from scipy.fftpack import fft
 import numpy as np
 import wave, sys
+#librosa 
 signal = 0
 samplerate=0
 #codificado en scottie 1 por que tenemos mucha informacion 
@@ -30,8 +31,18 @@ signal = signal/100
 #plt.axis([0,100,-3400,3400])
 #plt.plot(np.arange (len(signal))/samplerate,fft(signal))
 fig,(st,sf) = plt.subplots(2,1,constrained_layout=1)
-signalf = fft(signal)
-sf.plot(np.abs(signalf[:samplerate//2]),lw=0.15)
+
+signalf = fft(signal)#delvuelve numeros complejos por eso usamos la segunda mitad
+headersignal= signal[:30702]
+headersignalf = fft(headersignal)
+#sf.plot(np.abs(headersignalf[:samplerate//2]),lw=0.15)# EJe X frecuencia , eje Y intensidad de senial.
+#sf.plot(np.abs(signalf[:samplerate//2]),lw=0.15)# EJe X frecuencia , eje Y intensidad de senial.
+samplesperline = 6635
+start=1
+end=2
+firstlinesignal =  signal[start*(3*6635):end*(3*6635)]
+firstlinesignalf=fft(firstlinesignal)
+sf.plot(np.abs(firstlinesignalf[:samplerate//2]),lw=0.15)# EJe X frecuencia , eje Y intensidad de senial.
 sf.grid(1)
 
 samples  = signal.size
